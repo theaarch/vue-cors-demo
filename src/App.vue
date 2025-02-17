@@ -7,6 +7,11 @@ const router = useRouter();
 const userStore = useUserStore();
 watch(() => userStore.isLogin, (newVal) => {
   console.log(newVal);
+  if (newVal) {
+    router.replace('/');
+  } else {
+    router.replace('/login');
+  }
 })
 onMounted(() => {
   console.log(userStore.isLogin);
