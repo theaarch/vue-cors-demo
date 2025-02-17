@@ -2,20 +2,32 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
-// import Components from 'unplugin-vue-components/vite'
-// import AutoImport from 'unplugin-auto-import/vite'
-// import VueRouter from 'unplugin-vue-router/vite'
+import Components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import VueRouter from 'unplugin-vue-router/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   return {
     plugins: [
-      vue(),
       vueDevTools(),
-      // Components({}),
-      // AutoImport({ /* options */ }),
-      // VueRouter({ /* options */ }),
+      Components({}),
+      AutoImport({
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/,
+          /\.vue\?vue/, // .vue
+          /\.md$/, // .md
+        ],
+        imports: ["vue", "vue-router"],
+      }),
+      VueRouter({
+        extensions: [".vue"],
+        routesFolder: "src/views",
+      }),
+      vue(),
     ],
     resolve: {
       alias: {

@@ -19,24 +19,18 @@
 </template>
 
 <script setup>
-// import useUserStore from "@/stores/user";
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import useUserStore from "@/stores/user";
 const router = useRouter();
 import AuthAPI from "@/api/auth";
-// const userStore = useUserStore();
+const userStore = useUserStore();
 const formData = ref({
   email: "test@example.com",
   password: "password",
   remember: true,
 });
 const handleLogin = async () => {
-  // await userStore.loginFn()
-  await AuthAPI.csrf();
-  await AuthAPI.login(formData.value).then((data) => {
-    localStorage.setItem('isAuthenticated', true);
-    router.replace('/');
-  });
+  await userStore.loginFn(formData.value)
+
 };
 onMounted(() => {
 });

@@ -1,16 +1,14 @@
-import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import AuthAPI from "@/api/auth";
-export const useUserStore = defineStore('user', () => {
+const useUserStore = defineStore('user', () => {
 
   // 登录
   const isLogin = ref(false)
-  const loginFn = async () => {
+  const loginFn = async (formData) => {
     await AuthAPI.csrf();
-    await AuthAPI.login(formData.value).then((data) => {
-      localStorage.setItem('isAuthenticated', true);
+    await AuthAPI.login(formData).then((data) => {
       isLogin.value = true
-      // router.replace({ path: "/dashboard" });
+      getInfo()
     });
   }
   // 获取用户信息
@@ -22,3 +20,5 @@ export const useUserStore = defineStore('user', () => {
 }, {
   persist: true
 })
+
+export default useUserStore
