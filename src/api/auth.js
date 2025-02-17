@@ -2,14 +2,14 @@ import request from '@/request';
 
 const AuthAPI = {
 
-  csrf() {
+  csrf () {
     return request({
       url: `/sanctum/csrf-cookie`,
       method: 'get',
     });
   },
 
-  login(data) {
+  login (data) {
     return request({
       url: `/login`,
       method: 'post',
@@ -17,14 +17,14 @@ const AuthAPI = {
     });
   },
 
-  logout() {
+  logout () {
     return request({
       url: `/logout`,
       method: "post",
     });
   },
 
-  user() {
+  user () {
     return request({
       url: `/api/user`,
       method: "get",

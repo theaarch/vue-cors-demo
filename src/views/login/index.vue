@@ -26,8 +26,8 @@ const router = useRouter();
 import AuthAPI from "@/api/auth";
 // const userStore = useUserStore();
 const formData = ref({
-  email: "",
-  password: "",
+  email: "test@example.com",
+  password: "password",
   remember: true,
 });
 const handleLogin = async () => {
@@ -35,7 +35,7 @@ const handleLogin = async () => {
   await AuthAPI.csrf();
   await AuthAPI.login(formData.value).then((data) => {
     localStorage.setItem('isAuthenticated', true);
-    router.replace({ path: "/home" });
+    router.replace('/');
   });
 };
 onMounted(() => {

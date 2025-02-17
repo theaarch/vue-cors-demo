@@ -11,9 +11,9 @@ onMounted(() => {
   // console.log(userStore.isLogin);
   const isAuthenticated = localStorage.getItem('isAuthenticated');
   if (isAuthenticated) {
-    router.replace({ path: "/dashboard" });
+    router.replace('/');
   } else {
-    router.replace({ path: "/login" });
+    router.replace('/login');
   }
 })
 </script>
