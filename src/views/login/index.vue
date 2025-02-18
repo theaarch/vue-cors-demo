@@ -37,7 +37,7 @@ const userStore = useUserStore();
 
 const formData = ref({
   email: "test@example.com",
-  password: "password",
+  password: "",
   remember: false,
 });
 
