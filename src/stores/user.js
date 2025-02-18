@@ -1,40 +1,35 @@
 import { defineStore } from "pinia";
 import AuthAPI from "@/api/auth";
 
-const useUserStore = defineStore(
-  "user",
-  () => {
-    // 登录
-    const isLogin = ref(false);
-    const loginFn = async (formData) => {
-      await AuthAPI.csrf();
-      await AuthAPI.login(formData).then((data) => {
-        isLogin.value = true;
-        getInfo();
-      });
-    };
+export const useUserStore = defineStore("user", {
+  state: () => ({
+    user: null,
+  }),
 
-    // 退出登录
-    const logoutFn = async (type = true) => {
-      // type cookie是否失效 失效不调用接口
-      if (type) {
+  getters: {
+    isAuthenticated: (state) => !!state.user,
+  },
+
+  actions: {
+    async login(formData) {
+      await AuthAPI.csrf();
+      await AuthAPI.login(formData);
+      await this.fetchUser();
+    },
+
+    async logout(callAPI = true) {
+      if (callAPI) {
         await AuthAPI.logout();
       }
-      isLogin.value = false;
-      info.value = {};
-    };
 
-    // 获取用户信息
-    const info = ref({});
-    const getInfo = async () => {
-      info.value = await AuthAPI.user();
-    };
+      this.user = null;
+    },
 
-    return { isLogin, loginFn, info, getInfo, logoutFn };
+    async fetchUser() {
+      const data = await AuthAPI.user();
+      this.user = data.data;
+    },
   },
-  {
-    persist: true,
-  }
-);
 
-export default useUserStore;
+  persist: true,
+});

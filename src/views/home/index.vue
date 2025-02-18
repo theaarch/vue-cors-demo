@@ -1,16 +1,16 @@
 <template>
   <div class="main">
     <div class="main-pack">
-      <pre>{{ userStore.info }}</pre>
+      <pre>{{ userStore.user }}</pre>
 
-      <button @click="userStore.getInfo()">更新个人信息</button>
-      <button @click="userStore.logoutFn()">退出登录</button>
+      <button @click="userStore.fetchUser()">Fetch User</button>
+      <button @click="userStore.logout()">Logout</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import useUserStore from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 
 const userStore = useUserStore();
 </script>

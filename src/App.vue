@@ -3,16 +3,16 @@
 </template>
 
 <script setup>
-import useUserStore from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 const userStore = useUserStore();
 
 watch(
-  () => userStore.isLogin,
-  (newVal) => {
-    console.log(newVal);
-    if (newVal) {
+  () => userStore.isAuthenticated,
+  (newValue) => {
+    console.log(newValue);
+    if (newValue) {
       router.replace("/");
     } else {
       router.replace("/login");
@@ -21,8 +21,7 @@ watch(
 );
 
 onMounted(() => {
-  console.log();
-  if (userStore.isLogin) {
+  if (userStore.isAuthenticated) {
     router.replace("/");
   } else {
     router.replace("/login");

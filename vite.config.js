@@ -9,6 +9,8 @@ import VueRouter from "unplugin-vue-router/vite";
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
+  const useProxy = env.VITE_USE_PROXY === "true";
+
   return {
     plugins: [
       vueDevTools(),

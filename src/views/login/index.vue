@@ -29,7 +29,7 @@
 </template>
 
 <script setup>
-import useUserStore from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 import AuthAPI from "@/api/auth";
 
 const router = useRouter();
@@ -38,14 +38,12 @@ const userStore = useUserStore();
 const formData = ref({
   email: "test@example.com",
   password: "password",
-  remember: true,
+  remember: false,
 });
 
 const handleLogin = async () => {
-  await userStore.loginFn(formData.value);
+  await userStore.login(formData.value);
 };
-
-onMounted(() => {});
 </script>
 
 <style>

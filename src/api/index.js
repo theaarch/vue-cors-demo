@@ -1,5 +1,5 @@
 import axios from "axios";
-import useUserStore from "@/stores/user";
+import { useUserStore } from "@/stores/user";
 
 // Creating an instance
 const instance = axios.create({
@@ -37,7 +37,7 @@ instance.interceptors.response.use(
   (error) => {
     const response = error.response;
     if (response.status === 401) {
-      useUserStore().logoutFn(false);
+      useUserStore().logout(false);
     } else if (response.status === 403) {
       alert("Forbidden: " + response.data.message);
     } else if (response.status === 404) {
