@@ -1,8 +1,12 @@
-import axios from 'axios';
-import useUserStore from '@/stores/user';
+import axios from "axios";
+import useUserStore from "@/stores/user";
+
 // Creating an instance
 const instance = axios.create({
-  baseURL: '/backend',
+  baseURL:
+    import.meta.env.VITE_USE_PROXY === "true"
+      ? import.meta.env.VITE_API_PROXY_PATH
+      : import.meta.env.VITE_API_URL,
   headers: {
     "X-Requested-With": "XMLHttpRequest",
   },
@@ -13,7 +17,7 @@ const instance = axios.create({
 // Add a request interceptor
 instance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -35,15 +39,15 @@ instance.interceptors.response.use(
     if (response.status === 401) {
       useUserStore().logoutFn(false);
     } else if (response.status === 403) {
-      alert('Forbidden: ' + response.data.message);
+      alert("Forbidden: " + response.data.message);
     } else if (response.status === 404) {
-      alert('Not Found: ' + response.data.message);
+      alert("Not Found: " + response.data.message);
     } else if ([400, 422].includes(response.status)) {
-      alert('Error: ' + response.data.message);
+      alert("Error: " + response.data.message);
     } else if (response.status >= 500) {
-      alert('Server Error: ' + response.data.message);
+      alert("Server Error: " + response.data.message);
     } else {
-      alert('Something went wrong.');
+      alert("Something went wrong.");
     }
 
     return Promise.reject(error);

@@ -7,11 +7,21 @@
       </div>
       <div class="item">
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" v-model="formData.password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="formData.password"
+        />
       </div>
       <div>
-        <input type="checkbox" name="remember" id="remember" v-model="formData.remember" />
-        <label for="remember" style="margin-left: 10px;">Remember me</label>
+        <input
+          type="checkbox"
+          name="remember"
+          id="remember"
+          v-model="formData.remember"
+        />
+        <label for="remember" style="margin-left: 10px">Remember me</label>
       </div>
       <button type="submit">Login</button>
     </form>
@@ -20,21 +30,24 @@
 
 <script setup>
 import useUserStore from "@/stores/user";
-const router = useRouter();
 import AuthAPI from "@/api/auth";
+
+const router = useRouter();
 const userStore = useUserStore();
+
 const formData = ref({
   email: "test@example.com",
   password: "password",
   remember: true,
 });
-const handleLogin = async () => {
-  await userStore.loginFn(formData.value)
 
+const handleLogin = async () => {
+  await userStore.loginFn(formData.value);
 };
-onMounted(() => {
-});
+
+onMounted(() => {});
 </script>
+
 <style>
 .login {
   height: 100vh;

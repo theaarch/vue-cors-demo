@@ -1,36 +1,34 @@
-import request from '@/api';
+import request from "@/api";
 
 const AuthAPI = {
-
-  csrf () {
+  csrf() {
     return request({
       url: `/sanctum/csrf-cookie`,
-      method: 'get',
+      method: "get",
     });
   },
 
-  login (data) {
+  login(data) {
     return request({
       url: `/login`,
-      method: 'post',
-      data: data
+      method: "post",
+      data: data,
     });
   },
 
-  logout () {
+  logout() {
     return request({
       url: `/logout`,
       method: "post",
     });
   },
 
-  user () {
+  user() {
     return request({
       url: `/api/user`,
       method: "get",
     });
   },
-
 };
 
 export default AuthAPI;
