@@ -1,12 +1,27 @@
 <template>
-  <div>
-    <p>已登陆</p>
-    <p>首页</p>
-    {{ userStore.info }}
+  <div class="main">
+    <div class="main-pack">
+      <p> 个人信息：{{ userStore.info }}</p>
+      <button @click="userStore.getInfo()">更新个人信息</button>
+      <button @click="userStore.logoutFn()">退出登录</button>
+
+    </div>
   </div>
 </template>
 <script setup>
 import useUserStore from "@/stores/user";
 const userStore = useUserStore();
 </script>
-<style></style>
+<style>
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main-pack {
+  width: 400px;
+}
+</style>

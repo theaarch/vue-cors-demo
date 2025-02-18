@@ -1,6 +1,5 @@
 import axios from 'axios';
-import router from './router';
-
+import useUserStore from '@/stores/user';
 // Creating an instance
 const instance = axios.create({
   baseURL: '/backend',
@@ -20,7 +19,7 @@ instance.interceptors.request.use(
     }
 
     return config;
-  }, 
+  },
   (error) => {
     return Promise.reject(error);
   }
@@ -30,14 +29,11 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     return response.data;
-  }, 
+  },
   (error) => {
     const response = error.response;
-    
     if (response.status === 401) {
-			localStorage.removeItem('isAuthenticated');
-
-      router.replace({ path: '/login' });
+      useUserStore().logoutFn(false);
     } else if (response.status === 403) {
       alert('Forbidden: ' + response.data.message);
     } else if (response.status === 404) {

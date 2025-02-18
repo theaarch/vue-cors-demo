@@ -76,13 +76,4 @@ input {
   height: 100%;
   padding: 0;
 }
-
-
-button {
-  height: 35px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: #fff;
-}
 </style>

@@ -11,12 +11,21 @@ const useUserStore = defineStore('user', () => {
       getInfo()
     });
   }
+  // 退出登录
+  const logoutFn = async (type = true) => {
+    // type cookie是否失效 失效不调用接口
+    if (type) {
+      await AuthAPI.logout()
+    }
+    isLogin.value = false
+    info.value = {}
+  }
   // 获取用户信息
   const info = ref({})
   const getInfo = async () => {
     info.value = await AuthAPI.user()
   }
-  return { isLogin, loginFn, info, getInfo }
+  return { isLogin, loginFn, info, getInfo, logoutFn }
 }, {
   persist: true
 })
