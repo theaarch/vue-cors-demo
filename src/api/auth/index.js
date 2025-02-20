@@ -3,7 +3,7 @@ import request from "@/api";
 const AuthAPI = {
   csrf() {
     return request({
-      url: `/sanctum/csrf-cookie`,
+      url: `/csrf-cookie`,
       method: "get",
     });
   },
