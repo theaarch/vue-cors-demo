@@ -5,8 +5,8 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
 jobs:
   build-and-deploy:
@@ -45,4 +45,5 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: dist
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
