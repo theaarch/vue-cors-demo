@@ -45,4 +45,4 @@ jobs:
         with:
           target_branch: gh-pages
           build_dir: dist
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
