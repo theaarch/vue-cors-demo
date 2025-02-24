@@ -31,8 +31,18 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
 
+      - name: Show environment variables
+        run: |
+          echo "VITE_API_URL = $VITE_API_URL"
+          echo "VITE_APP_NAME = $VITE_APP_NAME"
+
+      # - name: Create .env file
+      #   run: |
+      #     echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" >> .env
+      #     echo "VITE_APP_NAME=${{ secrets.VITE_APP_NAME }}" >> .env
+
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build Vue 3 project
         run: pnpm run build
