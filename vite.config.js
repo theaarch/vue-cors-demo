@@ -12,6 +12,8 @@ export default defineConfig(({ mode }) => {
   const useProxy = env.VITE_USE_PROXY === "true";
 
   return {
+    base: process.env.NODE_ENV === 'production' ? '/vue-cors-demo/' : '/',
+
     plugins: [
       vueDevTools(),
       Components({}),
