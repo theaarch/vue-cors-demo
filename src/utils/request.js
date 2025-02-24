@@ -36,16 +36,20 @@ instance.interceptors.response.use(
   },
   (error) => {
     const response = error.response;
-    if (response.status === 401) {
+    const status = response.status;
+    const data = response.data;
+    const message = data.message;
+
+    if (status === 401) {
       useUserStore().logout(false);
-    } else if (response.status === 403) {
-      alert("Forbidden: " + response.data.message);
-    } else if (response.status === 404) {
-      alert("Not Found: " + response.data.message);
-    } else if ([400, 422].includes(response.status)) {
-      alert("Error: " + response.data.message);
-    } else if (response.status >= 500) {
-      alert("Server Error: " + response.data.message);
+    } else if (status === 403) {
+      alert("Forbidden: " + message);
+    } else if (status === 404) {
+      alert("Not Found: " + message);
+    } else if ([400, 422].includes(status)) {
+      alert("Error: " + message);
+    } else if (status >= 500) {
+      alert("Server Error: " + message);
     } else {
       alert("Something went wrong.");
     }
