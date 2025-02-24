@@ -12,7 +12,6 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # environment: github-pages
 
     env:
       NODE_VERSION: '22'
